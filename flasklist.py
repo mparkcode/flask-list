@@ -1,6 +1,7 @@
 import os
 from flask import Flask, redirect, render_template, request
 from random import choice
+import json
 
 app=Flask(__name__)
 
@@ -20,6 +21,11 @@ def get_index():
 def create_task():
     task = request.form['task_to_do']
     items.append(task)
+    
+    with open("data/list.json","w") as f:
+        data = json.dumps(items)
+        f.write(data)
+    
     return redirect("/")
 
 
